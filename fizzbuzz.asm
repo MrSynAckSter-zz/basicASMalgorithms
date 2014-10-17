@@ -6,7 +6,6 @@ section .text
 
 
 _start:
-	mov edx,0   
 	add edx, 1 
 	cmp edx,0x64
 	jnz _start
