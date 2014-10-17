@@ -5,7 +5,12 @@ global _start
 section .text
 
 
-_start: 
+_start:
+	mov edx,0   
+	add edx, 1 
+	cmp edx,0x64
+	jnz _start
+ 
 	mov edx,len
 	mov ecx,msg
 	mov ebx, 1
