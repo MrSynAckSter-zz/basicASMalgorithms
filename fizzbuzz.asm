@@ -8,7 +8,8 @@ section .text
 _start:
 	add edx, 1 
 	cmp edx,0x64
-	jnz _start
+    pushq rdx 
+   
  
 	mov edx,len
 	mov ecx,msg
@@ -16,7 +17,8 @@ _start:
 	mov eax, 4
 	int 0x80 
 	;Modulo 	
-
+    popq rdx 
+	jnz _start
 	;Add line feeds? 
 	; Convert dword to Ascii 
 	mov	eax, 1 ; sys_exit
