@@ -8,24 +8,30 @@ section .text
 _start:
 	add edx, 1 ; Add one 
 	cmp edx,0x64 ; if it's 100, set a flag. This will have to move lower
-    pushq rdx    ; Save the value 
+    pushq   rdx    ; Save the value 
    
-    mov eax, edx 
+    mov eax, edx   
     mov ebx, 7 
     div ebx
     
-    pushq rax
+    pushq rax ; Hold on to remainder
     
     mov eax, edx
     mov ebx, 9 
     div ebx, 
     cmp eax, 0
 
-    pushq rax
+    pushq rax ; Hold on to Remainder 
     
 
     popq rax ; Remainder from 9 operation  
     popq rbx ; Remainder from 7 operation 
+
+    comp rax rbx; 
+                
+    jnz  _fizz
+    jk   _fizzbuzz
+    jz   _buzz 
 
      
 	mov edx,len
