@@ -7,7 +7,6 @@ section .text
 
 _start:
 	add     edx, 1   ; Add one. Implicitly we start at 0  
-	cmp     edx,0x64 ; if it's 100, set a flag. This will have to move lower
 	pushq   rdx      ; Save the value 
    
         mov     eax, edx ; Move the value to edx so it may be devided (devided clobbers eax)   
@@ -29,23 +28,58 @@ _start:
                 
         jz     _fizzBuzz ; This might be wrong. 
 
-	cmp     rbx, 0  
-        jz      _fizz
-        cmp     rax, 0
+	cmp     rbx, 0   ; Is the remainder 0?  
+        jz      _fizz    
+        cmp     rax, 0   ; Is the remainder 0? 
         jz      _buzz 
 
-     
-	mov edx,len
-	mov ecx,msg
-	mov ebx, 1
-	mov eax, 4
-	int 0x80 
-        popq rdx 
+	mov     edx,len
+	mov     ecx,msg
+	mov     ebx, 1
+	mov     eax, 4
+	int     0x80 
+        popq    rdx 
+	cmp     edx,0x64 ; if it's 100, set a flag. This will have to move lower
 	jnz _start
 	                 ; Convert dword to Ascii 
 	mov	eax, 1   ; sys_exit
 	int	0x80     ; call kernal 
 
+_fizz: 
+	pushq rax
+	pushq rbx 
+	mov edx, fizzlen
+	mov ecx, fizzMsg 
+	mov ebx, 1
+	mov eax, 4
+	int 0x80  
+	popq rbx
+	popq rax 
+_buzz: 
+	pushq rax
+	pushq rbx 
+	mov edx, buzzlen 
+	mov ecx, buzzMsg
+	mov ebx, 1
+	mov eax, 4
+	int 0x80 
+	popq rbx 
+	popq rax
+
+_fizzBuzz:
+	pushq rax 
+	pushq rbx
+	mov edx, len
+	mov ecx, msg
+	mov ebx, 1
+	mov eax, 4
+	int 0x80 
+	popq rbx 
+	popq rax
 section .data 
 	msg db 'FizzBuzz', 0xa 
-	len  equ $ - msg 
+	len  equ $ - msg
+	fizzMsg db 'Fizz', 0xa
+	fizzlen equ $ - msg
+	buzzMsg db 'Buzz', 0xa 
+	buzzlen equ $ - msg 
