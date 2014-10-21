@@ -27,9 +27,12 @@ _start:
 
         comp    rax, rbx ; this wont work 
                 
-        jnz  _fizz
-        jk   _fizzbuzz
-        jz   _buzz 
+        jz     _fizzBuzz ; This might be wrong. 
+
+	cmp     rbx, 0  
+        jz      _fizz
+        cmp     rax, 0
+        jz      _buzz 
 
      
 	mov edx,len
