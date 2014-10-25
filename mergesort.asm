@@ -27,7 +27,7 @@ _mergesort_r:
     cmp rdx, 0x01 ; if right - left  is less than or equal 1
     
     jle returnProc ; return if that's the case 
-     
+         
    ;Return value goes in EAX 
     
    ;set up stack for recurssion 
@@ -52,6 +52,7 @@ _merge:
 ;Requires a list, left start, left end , right start, right end
 
 
+ret
 
 
 _print_list: 
