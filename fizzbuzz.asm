@@ -6,67 +6,85 @@ section .text
 
 
 _start:
-	add     edx, 1   ; Add one. Implicitly we start at 0  
-	pushq   rdx      ; Save the value 
+	add     eax, 1   ; Add one. Implicitly we start at 0  
+	pushq   rax      ; Save the value 
    
-        mov     eax, edx ; Move the value to edx so it may be devided (devided clobbers eax)   
-        mov     ebx, 7   ; Move the dvisor 
+        mov     ebx, 7   ; Load  the dvisor 
         div     ebx      ; divide 
     
-        pushq   rax      ; Hold on to remainder
-    
-        mov     eax, edx ; Move that same value over into  
+	popq    rax      ; Restore the current index 
+	pushq   rax      ; Hold onto the index 
+        pushq   rdx      ; Hold on to remainder
+	 
         mov     ebx, 9   ; Prepare to divide by 9
         div     ebx      ; divide 
-
-        pushq   rax      ; Hold on to Remainder 
+	
+        pushq   rdx      ; Hold on to Remainder 
     
         popq    rax      ; Remainder from 9 operation  
         popq    rbx      ; Remainder from 7 operation 
 
-        comp    rax, rbx ; this wont work 
-                
-        jz     _fizzBuzz ; This might be wrong. 
+        cmp    rbx, 0   ; if i % 7 == 0 
+	
+        je      _true    ;Push a 1 for true to the stack 
+        jne     _false   ;Push a 0 for false to the stack 
 
-	cmp     rbx, 0   ; Is the remainder 0?  
-        jz      _fizz    
-        cmp     rax, 0   ; Is the remainder 0? 
-        jz      _buzz 
-
-	mov     edx,len
-	mov     ecx,msg
-	mov     ebx, 1
-	mov     eax, 4
-	int     0x80 
-        popq    rdx 
+       
+        popq    rax      ; Pop our index.  
 	cmp     edx,0x64 ; if it's 100, set a flag. This will have to move lower
-	jnz _start
-	                 ; Convert dword to Ascii 
+	jne     _start
+	                 ; Convert dword to Ascii would be called here to print the index.  
 	mov	eax, 1   ; sys_exit
 	int	0x80     ; call kernal 
+	
+_true:
+	;if rbx is indeed 0, then we only need to make sure rax is too. 
+
+	cmp  rax, 0      ; is rax 0? 
+	je   _fizzBuzz   ; It is. FIZZBUZZ 
+	jne  _fizz 	 ; if it's not, then we are in a FIZZ only situation. 
+	ret
+
+_false: 
+	cmp  rax, 0     ; We already know that rbx aint zero. The only thing left 
+	je   _buzz
+	ret 
+
 
 _fizz: 
-	pushq rax
-	pushq rbx 
+	pushq rdx 
+	pushq rcx 
+	pushq rbx
+	pushq rax 
 	mov edx, fizzlen
 	mov ecx, fizzMsg 
 	mov ebx, 1
 	mov eax, 4
 	int 0x80  
-	popq rbx
-	popq rax 
-_buzz: 
-	pushq rax
-	pushq rbx 
+	popq rax
+	popq rbx 
+	popq rcx
+	popq rdx 
+	ret
+_buzz:
+	pushq rdx
+	pushq rcx 
+	pushq rbx
+	pushq rax 
 	mov edx, buzzlen 
 	mov ecx, buzzMsg
 	mov ebx, 1
 	mov eax, 4
 	int 0x80 
-	popq rbx 
 	popq rax
+	popq rbx
+	popq rcx
+	popq rdx 
+	ret
 
 _fizzBuzz:
+	pushq rdx 
+	pushq rcx
 	pushq rax 
 	pushq rbx
 	mov edx, len
@@ -74,8 +92,12 @@ _fizzBuzz:
 	mov ebx, 1
 	mov eax, 4
 	int 0x80 
-	popq rbx 
-	popq rax
+	popq rax 
+	popq rbx
+	popq rcx
+	popq rdx 
+	ret
+
 section .data 
 	msg db 'FizzBuzz', 0xa 
 	len  equ $ - msg
