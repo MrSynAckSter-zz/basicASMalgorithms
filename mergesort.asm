@@ -10,16 +10,16 @@ _start:
 ; Print Values before hand 
 
 _mergesort:
-    pushq startArray ; Pointer to the list 
-    pushq startlen ; Length of the list. Should be predetermined
-    pushq rax ; "Left" intialized to 0 the first go round 
+    push startArray ; Pointer to the list 
+    push startlen ; Length of the list. Should be predetermined
+    push rax ; "Left" intialized to 0 the first go round 
     
     ; Return control or exit or something 
 _mergesort_r:
     ; Pop or something
-    popq rax ; left
-    popq rbx ; Right 
-    popq rcx ; Pointer to list
+    pop rax ; left
+    pop rbx ; Right 
+    pop rcx ; Pointer to list
     ; Replace the pops with stack manipulation 
     
     mov rdx, rax ; Move left into a spot where we can keep the result
@@ -32,14 +32,14 @@ _mergesort_r:
     
    ;set up stack for recurssion 
    
-   pushq THECORRECTCURRENTLOCATIONOFTHELIST ; The current list 
+   push THECORRECTCURRENTLOCATIONOFTHELIST ; The current list 
     
    mov rdx, rax ; move left to rdx for computation 
    add rdx, rax ; left + right 
    ; rivide rdx by two to get left end  
-   pushq rax ; left_start
+   push rax ; left_start
 
-    jmp merge ; Most likely merge should be inlined 
+   jmp merge ; Most likely merge should be inlined 
 
     ;return control 
    
