@@ -14,7 +14,7 @@ _mergesort:
     push startlen ; Length of the list. Should be predetermined
     push rax ; "Left" intialized to 0 the first go round 
     
-    ; Return control or exit or something 
+    ; Return control or exit or something; 
 _mergesort_r:
     ; Pop or something
     pop rax ; left
@@ -56,6 +56,11 @@ ret
 
 
 _print_list: 
+
+_true: 
+
+
+_false: 
 
 section .data 
     startArray db 0x32, 0x44, 0x55, 0x78, 0x81, 0x92, 0x88, 0x11, 0x01, 0x02
