@@ -11,14 +11,30 @@ _start:
     startlen equ $-startArray ; or something look this up. 
     ;as a policy we just write down the length of each array as we go.     
      
-_merge: 
-;push and pop etc...
-;Requires a list, left start, left end , right start, right end
+_getN:  ; size of array / sizae of array [0] 
+	
+
+_quick_sort
+; Params A / N 
+cmp n, 2
+jl escapeAndQuit 
+; int l = a
+; int r = a + n -1
+; int p = a [ n / 2 ] 
+
+_incrementL: 
+
+_decrementR:
+
+_else: 
 
 
-_mergesort:
+;set up args for next quicksort 
 
-_mergesort_r: 
+;set up args for next quicksort 
+
+; Double word to ascii  
+
 
 _print_list: 
 

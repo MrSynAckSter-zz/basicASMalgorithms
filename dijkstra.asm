@@ -1,24 +1,35 @@
-;Merge Sort 
+;Implementation of Dijstra's Algorithm, as shown on Rosetta Code 
 global _start 
 
 section .text 
 
 _start:
+; Allocate memory for nodes 
+; Itterate over nodes 
+; Define Nodes 
+; Allocate memory for nodes
+; Iterate some more 
+; Calcuate cost of nodes 
 
-; Loosely based on http://rosettacode.org/wiki/Sorting_algorithms/Merge_sort#C
-    startArray db 0x32, 0x44, 0x55, 0x78, 0x81, 0x92, 0x88, 0x11, 0x01, 0x02
-    ; Maybe this goes in the data section? 
-    startlen equ $-startArray ; or something look this up. 
-    ;as a policy we just write down the length of each array as we go.     
-     
-_merge: 
-;push and pop etc...
-;Requires a list, left start, left end , right start, right end
+; Heap stuff 
 
+_setupStructs:
 
-_mergesort:
+_setEdges:
 
-_mergesort_r: 
+_addEdge: 
+
+_decrementE: 
+
+_freeEdges:
+
+_setDist:
+
+_popQueue:
+
+_calcAll:
+
+_showPath:      
 
 _print_list: 
 

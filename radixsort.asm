@@ -11,15 +11,19 @@ _start:
     startlen equ $-startArray ; or something look this up. 
     ;as a policy we just write down the length of each array as we go.     
      
-_merge: 
-;push and pop etc...
-;Requires a list, left start, left end , right start, right end
+_radixSort:
 
+_bucketCount
 
-_mergesort:
+_addCount:
 
-_mergesort_r: 
+_getIndex:
 
+_copyArray:
+
+_getNextGroup: 
+
+i
 _print_list: 
 
 
