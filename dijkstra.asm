@@ -13,6 +13,9 @@ _start:
 
 ; Heap stuff 
 
+
+;Node management
+
 _setupStructs:
 
 _setEdges:
